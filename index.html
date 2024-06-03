@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <hi>Tevt-to-speech</hi>
+    <textarea id="textbox" rows="4" cols="50"></textarea><br>
+    <button id="speakbtn" onclick="speak()">Speak</button>
+
+    <script>
+        function speak(){
+            let synth = window.speechSynthesis;
+            let voice = new SpeechSynthesisUtterance(`${textbox.value}`)
+            let sound = synth.getVoices();
+            voice.voice = sound[3];
+            synth.speak(voice);
+        }
+    </script>
+    
+</body>
+</html>
