@@ -1,23 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(#301414,#000);
+        }
+        .container
+        {
+            position: relative;
+            height: 530px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            -webkit-box-reflect: below 1px linear-gradient(transparent,transparent,transparent,transparent,transparent,transparent,#0005);
+        }
+        .heart 
+        {
+            position: relative;
+            height: 300px;
+            width: 300px;
+        }
+        .heart::before 
+        {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 20px;
+            width: 200px;
+            height: 300px;
+            background: #fe0623;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            rotate: 315deg;
+            z-index: 1000;
+            animation: animateHeart 1ss steps(1) infinite;
+        }
+        .heart::after
+         {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 92px;
+            width: 200px;
+            height: 300px;
+            background:  #fe0623;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            rotate: 45deg;
+            z-index: 1300;
+            animation: animateHeart 2s steps(1) infinite;
+        }
+        @keyframes animateHeart
+        {
+            0%,94%,100%
+            {
+              filter: none;
+
+            }
+            95%
+            {
+                filter: drop-shadow(0 0 50px #f00)  drop-shadow(0 0 150px #f00);
+                background: #f00;
+                
+            }
+        }
+        .drop
+        {
+            position: absolute;
+            top: 40px;
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(5px 5px 10px #000) drop-shadow(0px 0px 10px #f00);
+            transform-origin: bottom;
+            animation: animate 4s linear forwards;
+        }
+        .drop::before
+        {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: #f00;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            transform-origin: bottom center;
+            rotate: -45deg;
+            z-index: 100000;
+        }
+        .drop::after
+        {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            width: 30px;
+            height: 20px;
+            background: #f00;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            transform-origin: bottom center;
+            rotate: 315deg;
+            z-index: 100000;
+        }
+        @keyframes animate
+         {
+            0%
+            {
+                top: 40px;
+                opacity: 1;
+                scale: 1;
+            }
+            70%
+            {
+                top: 500px;
+                opacity: 1;
+            }
+            80%
+            {
+                top: 500px;
+            }
+            100%
+            {
+                top: 500px;
+                opacity: 0;
+                scale: 0;
+            }
+        }
+
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <hi>Tevt-to-speech</hi>
-    <textarea id="textbox" rows="4" cols="50"></textarea><br>
-    <button id="speakbtn" onclick="speak()">Speak</button>
-
+    <div class="container">xc
+        <div class="heart"></div>
+    </div>
     <script>
-        function speak(){
-            let synth = window.speechSynthesis;
-            let voice = new SpeechSynthesisUtterance(`${textbox.value}`)
-            let sound = synth.getVoices();
-            voice.voice = sound[3];
-            synth.speak(voice);
-        }
+        function rain(){
+            let heart = document.querySelector('.heart');
+            let e = document.createElement('div');
+            e.classList.add('drop');
+            heart.appendChild(e);
+
+            let left = Math.floor(Math.random() * 300);
+            let duration = Math.random() * 0.5;
+
+            e.style.left = left + 'px';
+            e.style.animationDuration = 1+duration+'s';
+
+            setInterval(function(){
+                heart.replaceChild(e)
+            },5000)
+    }
+        setInterval(function(){
+            rain()
+        },50);
     </script>
     
 </body>
